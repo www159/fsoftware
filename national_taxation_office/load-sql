@@ -1,0 +1,2 @@
+#/bin/bash
+sudo docker exec -i mysql sh -c 'mysql -uroot -p20011025' < $PWD/database.sql

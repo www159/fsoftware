@@ -1,0 +1,38 @@
+#!/bin/bash
+# 注意create-database-1.0-SNAPSHOT-jar-with-dependencies.jar 不能删除
+# 用于发现mysql
+properties=src/main/resources/application.properties
+create_shell=./build.create-database
+
+if [[ $1 == help ]]; then
+    echo '<shell> create-database --- build with create-database shell'
+    echo '<shell> refresh --- start container after building'
+    exit 0
+fi
+
+if [[ $1 == create-database ]]; then 
+    bash $create_shell
+fi
+
+sed -i 's/localhost/mysql/' $properties
+sed -i 's/profiles.active=.*/profiles.active=prod/' $properties
+sudo mvn clean
+sudo mvn package -DskipTests
+sudo mvn clean
+
+rm -rf target
+
+sed -i 's/mysql/localhost/2' $properties
+sed -i 's/profiles.active=.*/profiles.active=dev/' $properties
+
+
+if [[ $1 == refresh ]]; then
+    sudo docker compose rm --volumes app
+fi
+
+if [[ $1 == upload ]]; then
+    sudo docker login
+    sudo docker push www159/nationaltax:0.0.1-SNAPSHOT
+fi
+
+exit 0

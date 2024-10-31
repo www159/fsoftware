@@ -1,0 +1,16 @@
+#!/bin/bash
+remote=origin
+
+if [[ $# -eq 1 ]]; then
+    remote=$1
+fi
+
+cd ..
+cd national_taxation_office_newest
+git checkout master
+git pull $remote master
+cp -r ../national_taxation_office ./
+rm -rf national_taxation_office/.git
+git add .
+git commit -m 'update: backend'
+git push $remote master

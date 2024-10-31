@@ -1,0 +1,4 @@
+#!/bin/bash
+mysql -h127.0.0.1 -P3306 -uroot -p20011025 -e \
+"drop database nt_oa; \
+create database nt_oa;"

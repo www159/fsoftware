@@ -1,0 +1,9 @@
+FROM openjdk:11.0.11-jdk-slim
+# ENV http_proxy "http://127.0.0.1:7890"
+# ENV https_proxy "http://127.0.0.1:7890"
+ARG JAR_FILE
+ADD target/${JAR_FILE} /app.jar
+ADD create-database-1.0-SNAPSHOT-jar-with-dependencies.jar /create-database.jar
+ADD entrypoint /entrypoint
+EXPOSE 8080
+ENTRYPOINT [ "/bin/sh", "/entrypoint" ]

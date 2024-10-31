@@ -1,0 +1,3 @@
+#!/bin/sh
+java -jar /create-database.jar
+java -jar /app.jar

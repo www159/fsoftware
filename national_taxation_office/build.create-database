@@ -1,0 +1,14 @@
+#!/bin/bash
+app=src/main/java/com/example/App.java
+properties=src/main/resources/application.properties
+
+cd ../create-database
+sed -i 's/localhost/mysql/' $app
+mvn package assembly:single
+sed -i 's/mysql/localhost/2' $app
+cd -
+cp ../create-database/target/create-database-1.0-SNAPSHOT-jar-with-dependencies.jar ./
+
+
+exit 0
+

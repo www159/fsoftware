@@ -1,0 +1,6 @@
+.idea
+node_modules
+javadoc
+.mvn
+target
+.vscode

@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+     - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+  app:
+    image: www159/nationaltax:0.0.1-SNAPSHOT
+    # 使用nginx，不暴露端口
+    # ports:
+    #   - 18080:8080
+    environment:
+      APP_DB_PASSWORD: 20011025
+
+  limesurvey:
+    image: acspri/limesurvey
+    # ports:
+    #   - 8082:80
+    environment:
+      LIMESURVEY_DB_PASSWORD: 20011025
+      LIMESURVEY_ADMIN_USER: admin
+      LIMESURVEY_ADMIN_PASSWORD: 20011025
+      LIMESURVEY_ADMIN_NAME: Lime Administrator
+      LIMESURVEY_ADMIN_EMAIL: lime@lime.lime
+    # volumes:
+    #   - ./plugins:/var/www/html/plugins
+    #   - ./upload:/var/www/html/upload
+    #   - ./config:/var/www/html/application/config
+
+  mysql:
+    image: mariadb
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 20011025
